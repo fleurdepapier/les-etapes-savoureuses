@@ -1,0 +1,33 @@
+<div ng-controller="ACoteCtrl" class="page page-under-header">
+	
+	<div ng-show="contentLoading" ng-init="setupLoader()" class="loading" >
+		<div id="canvasLoaderAcote" class="loader-wrapper"></div>
+	</div>
+
+	<div class="list-etapes">
+
+
+		<p class="error" ng-show="geolocationError">Impossible de vous géolocaliser</p>
+
+		<ul class="themes-liste acote-liste" >
+
+
+			<li ng-repeat="etape in listEtapeTriee" style="background-color:{{theme.category_color}};" ng-click="goToFiche(etape.id);"  >
+				<span ng-if="etape.imagePrincipale.traductionFichiers[0].url != null" class="etape-image" style="background-image:url({{etape.imagePrincipale.traductionFichiers[0].url}});"></span>
+				<span ng-if="etape.imagePrincipale.traductionFichiers[0].url == null" class="etape-image" ></span>
+				<span class="titre titre-avec-image">
+					<p class="type">{{selectionsDatas[etape.idSelection].name}}</p>
+					<p>{{etape.nom.libelleFr}}</p>
+				</span>
+
+				<span class="nb-etapes">
+						<span class="chiffre">{{etape.km.valueRounded}}</span>
+						<span class="label">KM</span>
+				</span>
+
+			</li>
+		</ul>
+	</div>
+
+
+</div>

@@ -1,0 +1,15 @@
+<div class="page page-under-header">
+	<div ng-show="contentLoading" ng-init="setupHomeLoader()" class="loading" >
+			<div id="canvasLoader" class="loader-wrapper"></div>
+		</div>
+
+	<ul ng-click="updateAnimRetour(false); animToLeft = true" class="themes-liste" >
+
+		<li ng-repeat="theme in themes" ng-click="goToTheme(theme)" >
+				<span class="icon" ng-style="{'background-image':'url({{theme.category_icon.url}})'}"></span>
+				<span class="titre">{{theme.category_name}}</span>
+				<span class="color"  ng-style="{'background-color':'{{theme.category_color}}'}"></span> 
+		</li>
+	</ul>
+	
+</div>
