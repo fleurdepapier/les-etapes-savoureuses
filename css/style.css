@@ -1358,6 +1358,72 @@ ul.themes-liste li:hover span.color {
   margin-left: -24px;
 }
 
+.ficheEtape .contact-titre:before{
+  content: "";
+  width: 41px;
+  height: 48px;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background-image: url(../img/picto-contact.png);
+  background-repeat: no-repeat;
+}
+
+.ficheEtape .horaire-titre:before{
+  content: "";
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: -10px;
+  left: -16px;
+  background-image: url(../img/picto-horaires.png);
+  background-repeat: no-repeat;
+}
+
+.ficheEtape .visite-titre:before{
+  content: "";
+  width: 35px;
+  height: 37px;
+  position: absolute;
+  top: -10px;
+  left: -16px;
+  background-image: url(../img/picto-visite.png);
+  background-repeat: no-repeat;
+}
+
+.ficheEtape .tarif-titre:before{
+  content: "";
+  width: 35px;
+  height: 37px;
+  position: absolute;
+  top: -10px;
+  left: -16px;
+  background-image: url(../img/picto-tarif.png);
+  background-repeat: no-repeat;
+}
+
+.ficheEtape .langue-titre:before{
+  content: "";
+  width: 44px;
+  height: 41px;
+  position: absolute;
+  top: -10px;
+  left: -16px;
+  background-image: url(../img/picto-langue.png);
+  background-repeat: no-repeat;
+}
+
+.ficheEtape .footerFiche{
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  background-image: url(../img/fiche-etape-footer.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  margin-top: -80px;
+  z-index: 9999;
+  float: left;
+}
 
 #page-jouez{
   background-color: #f7f6f2;
