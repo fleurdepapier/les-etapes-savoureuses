@@ -75,7 +75,7 @@ function JouerCtrl($scope, $rootScope, $routeParams, $resource, $http, $timeout)
 			$scope.$apply();
 		  	//alert( "Data Loaded: " + data );
 		}).fail(function() {
-			$scope.message = 'Une erreur s\'est produite. Veuillez reessayer utiltérieurement.';
+			$scope.message = 'Une erreur s\'est produite. Veuillez vérifier votre connexion internet et reessayer utiltérieurement.';
 		});
 	}
 }
