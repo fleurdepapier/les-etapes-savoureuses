@@ -20,4 +20,6 @@ function NavCtrl($scope, $rootScope, $location, $resource)
 			$rootScope.menuApropos = datas.posts[0].custom_fields.pages;
 		});
 	}
+
+	
 }

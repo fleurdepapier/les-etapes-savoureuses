@@ -28,6 +28,14 @@ app.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'templates/tutoriel.html',
 		controller: 'TutorielCtrl'
 	})
+	.when('/actualites', {
+		templateUrl: 'templates/actualites.html',
+		controller: 'ActualitesCtrl'
+	})
+	.when('/actualites/:idActu', {
+		templateUrl: 'templates/actualite-single.html',
+		controller: 'ActualiteSingleCtrl'
+	})
 	.when('/jouer', {
 		templateUrl: 'templates/jouer.html',
 		controller: 'JouerCtrl'
@@ -146,6 +154,16 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 			{
 				$rootScope.animSide = "right";
 			}
+
+			if( currentName == "ActualitesCtrl" && nextName == "ActualiteSingleCtrl" )
+			{
+				$rootScope.animSide = "left";
+			}
+			if( currentName == "ActualiteSingleCtrl" && nextName == "ActualitesCtrl" )
+			{
+				$rootScope.animSide = "right";
+			}
+			
 			$rootScope.currentCtrl = current.$$route.controller;
 
 		}

@@ -1,12 +1,10 @@
 <ng-include src="'templates/menu.html'"></ng-include>
 
-<snap-content id="page-apropos" class="panel">
+<snap-content id="page-apropos" class="panel page-listing">
 
 	<section class="panel panel-padding" >
 
 		<ng-include src="'templates/header.html'"></ng-include>
-
-		<h1>{{title}}</h1>
 
 		<div class="block" ng-repeat="bloc in contentPage">
 			<div class="content">
@@ -17,7 +15,7 @@
 				<div ng-bind-html="bloc.texte"></div>
 
 				<span ng-show="bloc.link_title != '' && bloc.link != ''">
-					<a target="_blank" href="{{bloc.link}}" title="{{bloc.link_title}}" class="button-pdf">{{bloc.link_title}}</a>
+					<a target="_blank" href="{{bloc.link}}" title="{{bloc.link_title}}" class="button-pdf"><p>{{bloc.link_title}}</p></a>
 				</span>
 
 			</div>

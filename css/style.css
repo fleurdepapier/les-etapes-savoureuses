@@ -153,9 +153,9 @@ a {
 
 /*
 input, textarea{
-  border:none;
-  -webkit-appearance: none;
-  @include border-radius(0px);
+	border:none;
+	-webkit-appearance: none;
+	@include border-radius(0px);
 }
 */
 /* line 74, style.scss */
@@ -607,7 +607,7 @@ body.right .view.ng-enter {
 
 /*
 .page.page-under-header{
-  padding-top: 75px;
+	padding-top: 75px;
 }*/
 /* Anim leave block theme */
 /* line 434, style.scss */
@@ -723,6 +723,29 @@ body.right .view.ng-enter {
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+.menu-container ul li.jouer :before{
+  background-image: url(../img/icon-jouez@2x.png);
+  background-size: 30px auto;
+  background-position: 10px 4px;
+
+}
+
+.menu-container ul li.about :before{
+  background-image: url(../img/jouez-infos.png);
+  background-size: 24px auto;
+  background-position: 11px 8px;
+
+}
+
+.menu-container ul li.actualites :before{
+  background-image: url(../img/icon-journal.png);
+  background-size: 28px auto;
+ /* background-position: 11px 8px;*/
+
+}
+
+
 /* line 533, style.scss */
 .menu-container ul li span {
   width: 100%;
@@ -1759,7 +1782,7 @@ margin-bottom: 15px !important;
   filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=NaN, Strength=7);
 }
 
-#page-apropos h1{
+.page-listing h1{
   text-align: center;
   font-family: "GothamRnd-Light", sans-serif;
   font-size: 28px;
@@ -1771,19 +1794,19 @@ margin-bottom: 15px !important;
   margin-bottom: 40px;
 }
 
-#page-apropos .block {
+.page-listing .block {
   width: 100%;
   border-top: 1px solid #e5e5e5;
   margin-bottom: 80px;
 }
 
-#page-apropos .block .content {
+.page-listing .block .content {
   width: 90%;
   margin: auto;
   text-align: left;
 }
-#page-apropos .block .content h2 {
-  font-family: "GothamRnd-Book", sans-serif;
+.page-listing .block .content h2 {
+  font-family: "GothamRnd-Light", sans-serif;
   font-size: 20px;
   margin: 20px 0px;
   font-weight: normal;
@@ -1791,7 +1814,7 @@ margin-bottom: 15px !important;
   margin-bottom: 10px;
 }
 
-#page-apropos .block .content img{
+.page-listing .block .content img{
   max-width: 90%;
   margin: auto;
   margin-bottom: 10px;
@@ -1799,12 +1822,32 @@ margin-bottom: 15px !important;
 
 }
 
-#page-apropos .block .content a{
+.page-listing .block .content .date{
+  font-family: "GothamRnd-Light", sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #393939;
+  font-weight: normal;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.page-listing .block .content .image-crop{
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center center;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+
+.page-listing .block .content a{
   font-family: "Sanchez", "Times New Roman";
   font-size: 14px;
 }
 
-#page-apropos a.button-pdf{
+.page-listing a.button-pdf{
   display: inline-block;
   background-color: #9d2344 !important;
   color: white !important;
@@ -1822,8 +1865,57 @@ margin-bottom: 15px !important;
   padding: 0px 20px !important;
   border: 1px solid #9d2344 !important;
 }
+.page-listing a.button-pdf p {
+line-height: 13px;
+font-family: "GothamRnd-Bold", sans-serif;
+font-size: 11px;
+color: white;
+text-transform: uppercase;
+}
 
 
+.actu-content {
+  text-align: left;
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.actu-content .image-crop{
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center center;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.actu-content h2 {
+  font-family: "GothamRnd-Light", sans-serif;
+  font-size: 20px;
+  margin: 20px 0px;
+  font-weight: normal;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.actu-content .texte{
+  font-family: "Sanchez", "Times New Roman";
+  font-size: 14px;
+  line-height: 18px;
+  text-align: justify;
+}
+
+.actu-content .date{
+  font-family: "GothamRnd-Light", sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #393939;
+  font-weight: normal;
+  margin-top: 10px;
+  display: inline-block;
+}
 
 /** RETINA CASE **/
 @media only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi) {

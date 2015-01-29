@@ -11,6 +11,7 @@ function AProposCtrl($scope, $rootScope, $routeParams, $resource, $timeout)
     $rootScope.aproposPage = $routeParams.page;
 	$scope.pageName = 'apropos';
 
+
 	var page = $rootScope.aproposPage.split('-');
 	var idPage = page[page.length-1];
 
@@ -20,8 +21,8 @@ function AProposCtrl($scope, $rootScope, $routeParams, $resource, $timeout)
 
 		var WPAPI = $resource(baseURLWordpress+'?wpapi=get_posts&dev=1&type=page&id='+idPage, null, {'query' : {method:'GET', params:{isArray:false}} });
 		WPAPI.query( null, function(datas){
-			console.log(datas);
-			$scope.title = datas.posts[0].title_plain;
+			
+			$scope.pageTitle1 = datas.posts[0].title_plain;
 			$scope.contentPage = datas.posts[0].custom_fields.blocs;
 		});
 		
