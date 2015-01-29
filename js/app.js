@@ -32,6 +32,10 @@ app.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'templates/jouer.html',
 		controller: 'JouerCtrl'
 	})
+	.when('/apropos/:page', {
+		templateUrl: 'templates/apropos.html',
+		controller: 'AProposCtrl'
+	})
 	.otherwise({
 		redirectTo: '/home/themes'
 	});
@@ -104,7 +108,7 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 
 			// Default
 			$rootScope.animSide = "fadeAnimation";
-
+			$rootScope.aproposPage = null;
 
 			if( currentName == "HomeCtrl" && nextName == "HomeCtrl" )
 			{

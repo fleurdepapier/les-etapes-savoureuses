@@ -10,30 +10,15 @@
 			<li snap-toggle class="jouer" ng-class="{active: pageName=='jouer'}" ng-click="goToPage('jouer')" >
 				<span>Jouer</span>
 			</li>
-			<!--<li ng-click="isAboutOpen = false ; isReglagesOpen = !isReglagesOpen" class="reglages parent" ng-class="{open: isReglagesOpen}">
-				<span>Réglages</span>
-			</li>
-				<ul class="sousmenu" ng-class="{activate: isReglagesOpen}">
-					<li class="quisommesnous">
-						<span>Qui sommes nous ?</span>
-					</li>
-					<li class="">
-						<span>Partenaires</span>
-					</li>
-				</ul>
-			
-			<li ng-click="isReglagesOpen = false ; isAboutOpen = !isAboutOpen"  class="about parent" ng-class="{open: isAboutOpen}">
+			<li ng-click="isReglagesOpen = false ; isAboutOpen = !isAboutOpen"  class="about parent" ng-class="{open: isAboutOpen || pageName=='apropos' }">
 				<span>A propos</span>
 			</li>
-				<ul class="sousmenu" ng-class="{activate: isAboutOpen}">
-					<li class="quisommesnous">
-						<span>Qui sommes nous ?</span>
-					</li>
-					<li class="">
-						<span>Partenaires</span>
+				<ul class="sousmenu" ng-class="{activate: isAboutOpen || pageName == 'apropos'}">
+
+					<li ng-repeat="lien in menuApropos" class="quisommesnous" ng-click="goToPage('apropos/'+lien.post_name+'-'+lien.ID)"  ng-class="{active: aproposPage==lien.post_name+'-'+lien.ID}">
+						<span >{{lien.post_title}}</span>
 					</li>
 				</ul>
-			-->
 		</ul>
 	</div>
 </snap-drawer>
