@@ -22,9 +22,9 @@ function ActualiteSingleCtrl($scope, $routeParams, $rootScope, $resource, $timeo
 
 		var WPAPI = $resource(baseURLWordpress+'?wpapi=get_posts&dev=1&&type=post&content=1&id='+idActu, null, {'query' : {method:'GET', params:{isArray:false}} });
 		WPAPI.query( null, function(datas){
-			console.log(datas);
-			$scope.actu = datas.posts[0];
 			
+			$scope.actu = datas.posts[0];
+
 			var date = $scope.actu.date.split(" ");
 			date = date[0].split('-');
 

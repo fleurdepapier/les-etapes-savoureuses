@@ -1196,9 +1196,7 @@ ul.themes-liste li:after {
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url(../img/halo-menu-li.png);
-  background-size: auto 100%;
-  background-position: center bottom;
+
 }
 /* line 838, style.scss */
 ul.themes-liste li:hover span.color {
@@ -1393,6 +1391,10 @@ ul.themes-liste li:hover span.color {
   top: -24px;
   left: 50%;
   margin-left: -24px;
+}
+
+.ficheEtape .complementAccueil.itineraire:before{
+  background-image: url(../img/picto-itineraire.png);
 }
 
 .ficheEtape .contact-titre {
@@ -1915,6 +1917,15 @@ text-transform: uppercase;
   font-weight: normal;
   margin-top: 10px;
   display: inline-block;
+}
+
+.background-panel{
+  background-size: 100% 100%;
+  background-image: url(../img/fondCategories.png);
+}
+.background-panel-rouge{
+  background-size: 100% 100%;
+  background-image: url(../img/fondCategories.jpg);
 }
 
 /** RETINA CASE **/
