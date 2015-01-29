@@ -153,9 +153,9 @@ a {
 
 /*
 input, textarea{
-	border:none;
-	-webkit-appearance: none;
-	@include border-radius(0px);
+  border:none;
+  -webkit-appearance: none;
+  @include border-radius(0px);
 }
 */
 /* line 74, style.scss */
@@ -607,7 +607,7 @@ body.right .view.ng-enter {
 
 /*
 .page.page-under-header{
-	padding-top: 75px;
+  padding-top: 75px;
 }*/
 /* Anim leave block theme */
 /* line 434, style.scss */
@@ -1358,11 +1358,12 @@ ul.themes-liste li:hover span.color {
   margin-left: -24px;
 }
 
-.fiche-etape .contact-titre {
+.ficheEtape .contact-titre {
   margin: 0px !important;
   margin-bottom: 10px !important;
   position: relative;
-  padding-left: 40px !important;
+  padding-left: 47px !important;
+  margin-top: 40px !important;
 }
 
 .ficheEtape .contact-titre:before{
@@ -1370,15 +1371,15 @@ ul.themes-liste li:hover span.color {
   width: 41px;
   height: 48px;
   position: absolute;
-  top: -10px;
-  left: -10px;
+  top: -12px;
+  left: -4px;
   background-image: url(../img/picto-contact.png);
   background-repeat: no-repeat;
 }
 
-.fiche-etape .horaire-titre {
+.ficheEtape .horaire-titre {
 position: relative;
-padding-left: 27px !important;
+padding-left: 37px !important;
 margin-bottom: 15px !important;
 }
 .ficheEtape .horaire-titre:before{
@@ -1387,14 +1388,14 @@ margin-bottom: 15px !important;
   height: 36px;
   position: absolute;
   top: -10px;
-  left: -16px;
+  left: -6px;
   background-image: url(../img/picto-horaires.png);
   background-repeat: no-repeat;
 }
 
-.fiche-etape .visite-titre {
+.ficheEtape .visite-titre {
 position: relative;
-padding-left: 25px !important;
+padding-left: 35px !important;
 margin-bottom: 15px !important;
 }
 .ficheEtape .visite-titre:before{
@@ -1403,14 +1404,14 @@ margin-bottom: 15px !important;
   height: 37px;
   position: absolute;
   top: -10px;
-  left: -16px;
+  left: -6px;
   background-image: url(../img/picto-visite.png);
   background-repeat: no-repeat;
 }
 
-.fiche-etape .tarif-titre {
+.ficheEtape .tarif-titre {
 position: relative;
-padding-left: 25px !important;
+padding-left: 35px !important;
 margin-bottom: 15px !important;
 }
 
@@ -1420,14 +1421,14 @@ margin-bottom: 15px !important;
   height: 37px;
   position: absolute;
   top: -10px;
-  left: -16px;
+  left: -6px;
   background-image: url(../img/picto-tarif.png);
   background-repeat: no-repeat;
 }
 
-.fiche-etape .langue-titre {
+.ficheEtape .langue-titre {
 position: relative;
-padding-left: 35px !important;
+padding-left: 45px !important;
 margin-bottom: 15px !important;
 }
 .ficheEtape .langue-titre:before{
@@ -1436,7 +1437,7 @@ margin-bottom: 15px !important;
   height: 41px;
   position: absolute;
   top: -10px;
-  left: -16px;
+  left: -6px;
   background-image: url(../img/picto-langue.png);
   background-repeat: no-repeat;
 }
