@@ -771,12 +771,26 @@ body.right .view.ng-enter {
 }
 /* line 572, style.scss */
 .menu-container ul ul.sousmenu li {
-  background-color: #3e3e3e;
-  border-bottom: 1px solid #5d5d5d;
+  background-color: #555 ;
+  border-bottom: 1px solid #484848;
   border-top: none;
   color: white;
   height: 50px;
   line-height: 45px;
+  cursor: pointer;
+}
+.menu-container ul ul.sousmenu li.active{
+  background-color: #444;
+  -moz-box-shadow: inset 0px -7px 10px -4px #333;
+  -webkit-box-shadow: inset 0px -7px 10px -4px #333;
+  -o-box-shadow: inset 0px -7px 10px -4px #333;
+  box-shadow: inset 0px -7px 10px -4px #333;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#333, Direction=90, Strength=10);
+}
+
+.menu-container ul ul.sousmenu li span{
+  padding-left: 26px;
+  margin-top: 6px;
 }
 /* line 579, style.scss */
 .menu-container ul ul.sousmenu li :before {
@@ -1744,6 +1758,72 @@ margin-bottom: 15px !important;
   box-shadow: 0px 0px 7px 0px #cfcfcf;
   filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=NaN, Strength=7);
 }
+
+#page-apropos h1{
+  text-align: center;
+  font-family: "GothamRnd-Light", sans-serif;
+  font-size: 28px;
+  color: #4c4c4c;
+  text-transform: uppercase;
+  font-weight: lighter;
+  margin: 0px;
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+#page-apropos .block {
+  width: 100%;
+  border-top: 1px solid #e5e5e5;
+  margin-bottom: 80px;
+}
+
+#page-apropos .block .content {
+  width: 90%;
+  margin: auto;
+  text-align: left;
+}
+#page-apropos .block .content h2 {
+  font-family: "GothamRnd-Book", sans-serif;
+  font-size: 20px;
+  margin: 20px 0px;
+  font-weight: normal;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+#page-apropos .block .content img{
+  max-width: 90%;
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+}
+
+#page-apropos .block .content a{
+  font-family: "Sanchez", "Times New Roman";
+  font-size: 14px;
+}
+
+#page-apropos a.button-pdf{
+  display: inline-block;
+  background-color: #9d2344 !important;
+  color: white !important;
+  font-family: "GothamRnd-Bold", sans-serif;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+  height: 37px !important;
+  line-height: 37px !important;
+  margin-top: 30px !important;
+  vertical-align: middle;
+  -webkit-border-radius: 3px !important;
+  -moz-border-radius: 3px !important;
+  border-radius: 3px !important;
+  padding: 0px 20px !important;
+  border: 1px solid #9d2344 !important;
+}
+
+
 
 /** RETINA CASE **/
 @media only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi) {
