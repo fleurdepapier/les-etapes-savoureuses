@@ -32,16 +32,12 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 		if( $rootScope.themes == null && $rootScope.isOnline == true ){
 			var WPAPI = $resource(baseURLWordpress+'?wpapi=get_posts&dev=1&type=page&id=16', null, {'query' : {method:'GET', params:{isArray:false}} });
 			WPAPI.query( null, function(datas){
-				navigator.splashscreen.hide();
 				$scope.contentLoading = false;
 				$rootScope.themes = datas.posts[0].custom_fields.category;
 				$rootScope.$storage.themes = $rootScope.themes;
 			});
 		}
 
-
-		if( $rootScope.isOnline == false )
-			navigator.splashscreen.hide();
 
 		if( $rootScope.isOnline == false && $rootScope.$storage.themes != null ){
 			$rootScope.themes = $rootScope.$storage.themes;

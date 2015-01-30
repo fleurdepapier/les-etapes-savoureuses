@@ -44,6 +44,9 @@ app.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'templates/apropos.html',
 		controller: 'AProposCtrl'
 	})
+	.when('/application-mobile', {
+		templateUrl: 'templates/application.html',
+	})
 	.otherwise({
 		redirectTo: '/home/themes'
 	});

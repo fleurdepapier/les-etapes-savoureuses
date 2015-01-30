@@ -153,9 +153,9 @@ a {
 
 /*
 input, textarea{
-  border:none;
-  -webkit-appearance: none;
-  @include border-radius(0px);
+	border:none;
+	-webkit-appearance: none;
+	@include border-radius(0px);
 }
 */
 /* line 74, style.scss */
@@ -607,7 +607,7 @@ body.right .view.ng-enter {
 
 /*
 .page.page-under-header{
-  padding-top: 75px;
+	padding-top: 75px;
 }*/
 /* Anim leave block theme */
 /* line 434, style.scss */
@@ -742,6 +742,13 @@ body.right .view.ng-enter {
   background-image: url(../img/icon-journal.png);
   background-size: 28px auto;
  /* background-position: 11px 8px;*/
+
+}
+
+.menu-container ul li.appli :before{
+  background-image: url(../img/icon-mobile@2x.png);
+  background-size: auto 30px;
+  background-position: 15px 6px;
 
 }
 
@@ -1973,6 +1980,63 @@ text-transform: uppercase;
   background-size: 100% 100%;
   background-image: url(../img/fondCategories.jpg);
 }
+
+
+.application-mobile{
+  background-color: #f7f6f2;
+}
+
+.application-mobile .fond{
+  display: block;
+  width: 100%;
+}
+
+.application-mobile p{
+  display: block;
+  width: 80%;
+  margin: auto;
+  text-align: left;
+  font-family: "Sanchez", "Times New Roman";
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.application-mobile .bt-applis-ctn{
+  width: 300px;
+  margin: auto;
+}
+
+.application-mobile a.button-appli{
+  margin-left: 10px;
+  margin-right: 10px;
+  float: left;
+  display: block;
+  height: 45%;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+}
+
+.application-mobile .bt-applis-ctn{
+  width: 300px;
+  margin: auto;
+}
+
+
+.application-mobile a.button-appli.applestore{
+  width: 125px;
+  height: 40px;
+  margin-top: 2px;
+  background-image: url(../img/bt_applestore.png);
+}
+
+.application-mobile a.button-appli.playstore{
+  width: 125px;
+  height: 45px;
+  background-image: url(../img/bt_playstore.png);
+}
+
 
 /** RETINA CASE **/
 @media only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi) {

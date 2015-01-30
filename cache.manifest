@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 0.0.1 - 10
+# 0.0.1 - 1
 
 # indicates that the cached data should be disregarded if an active internet connection is present
 SETTINGS:
@@ -27,6 +27,9 @@ fonts/GothamRnd-Medium.otf
 fonts/Sanchezsemibold-ita.otf
 fonts/sanchez-regular.otf
 
+
+img/appli-fond1.jpg
+img/appli-fond2.jpg
 img/ImageManquante.jpg
 img/ImageManquante.png
 img/ImageManquante2.png
@@ -42,13 +45,26 @@ img/bt-retour.png
 img/bt-retour@2x.png
 img/bt-twitter.png
 img/bt-twitter@2x.png
+img/bt_applestore.png
+img/bt_playstore.png
 img/fleche.png
 img/fleche@2x.png
+img/fondCategories.jpg
+img/fondCategories.png
 img/halo-menu-li.png
 img/ico-etapes.png
 img/ico-etapes@2x.png
 img/ico-musee.png
 img/ico-musee@2x.png
+img/icon-filtre.png
+img/icon-jouez.png
+img/icon-jouez@2x.png
+img/icon-journal.png
+img/icon-journal@2x.png
+img/icon-mobile.png
+img/icon-mobile@2x.png
+img/icon-pin.png
+img/icon-pin@2x.png
 img/imageManquante-grande.jpg
 img/imageManquante-petite.jpg
 img/jouez-infos.png
@@ -57,6 +73,7 @@ img/langue_en.png
 img/langue_es.png
 img/langue_fr.png
 img/loader.gif
+img/locate-button.png
 img/logo-menu.png
 img/logo-menu@2x.png
 img/logo.png
@@ -69,15 +86,18 @@ img/picto-horaires.png
 img/picto-langue.png
 img/picto-tarif.png
 img/picto-visite.png
+img/photo-bg@2x.png
+img/picto-contact.png
+img/picto-etoile.png
+img/picto-horaires.png
+img/picto-itineraire.png
+img/picto-langue.png
+img/picto-tarif.png
+img/picto-visite.png
 
 img/clusterer/m1.png
 img/clusterer/m2.png
 img/clusterer/m3.png
-
-img/clusterer/old/m1-old.png
-img/clusterer/old/m1.png
-img/clusterer/old/m2.png
-img/clusterer/old/m3.png
 
 img/distinctions/logoDistinction-1462.png
 img/distinctions/logoDistinction-1489.png
@@ -98,12 +118,36 @@ img/distinctions/logoDistinction-2966.png
 img/distinctions/logoDistinction-2974.png
 img/distinctions/logoDistinction-3846.png
 
-img/startup/apple-touch-startup-image-640x1096.png
+img/favicons/apple-touch-icon-114x114.png
+img/favicons/favicon-160x160.png
+img/favicons/apple-touch-icon-120x120.png
+img/favicons/favicon-16x16.png
+img/favicons/apple-touch-icon-144x144.png
+img/favicons/favicon-196x196.png
+img/favicons/apple-touch-icon-152x152.png
+img/favicons/favicon-32x32.png
+img/favicons/apple-touch-icon-57x57.png
+img/favicons/favicon-96x96.png
+img/favicons/apple-touch-icon-60x60.png
+img/favicons/favicon.ico
+img/favicons/apple-touch-icon-72x72.png
+img/favicons/mstile-144x144.png
+img/favicons/apple-touch-icon-76x76.png
+img/favicons/mstile-150x150.png
+img/favicons/apple-touch-icon-precomposed.png
+img/favicons/mstile-310x150.png
+img/favicons/apple-touch-icon.png
+img/favicons/mstile-310x310.png
+img/favicons/mstile-70x70.png
+
 
 js/app.js
 js/cachecleaner.js
 
 js/controllers/ACoteCtrl.js
+js/controllers/ActualitesCtrl.js
+js/controllers/ActualiteSingleCtrl.js
+js/controllers/AProposCtrl.js
 js/controllers/CarteCtrl.js
 js/controllers/EtapeCtrl.js
 js/controllers/HomeCtrl.js
@@ -126,12 +170,15 @@ lib/angular.js
 lib/angular.min.js
 lib/geoPosition.js
 lib/jquery-1.11.0.min.js
-lib/markerclusterer-compiled.js
 lib/markerclusterer.js
 lib/ngMap.min.js
 lib/ngStorage.min.js
 lib/snap.js
 
+templates/actualite-single.html
+templates/actualites.html
+templates/application.html
+templates/apropos.html
 templates/carte.html
 templates/etape.html
 templates/header.html
