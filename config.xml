@@ -43,7 +43,7 @@
         <preference name="phonegap-version"       value="3.5.0" />
     -->
     <preference name="SplashScreen" value="splash" />
-    
+
     <!-- Plugins -->
 
     <!-- Core plugins -->
@@ -87,12 +87,12 @@
 
 
     <!-- Define app splash screen for each platform. -->
-    <gap:splash src="res/screen/android/screen-ldpi-portrait.png"       gap:platform="android" gap:qualifier="ldpi" />
-    <gap:splash src="res/screen/android/screen-mdpi-portrait.png"       gap:platform="android" gap:qualifier="mdpi" />
-    <gap:splash src="res/screen/android/screen-hdpi-portrait.png"       gap:platform="android" gap:qualifier="hdpi" />
-    <gap:splash src="res/screen/android/screen-xhdpi-portrait.png"      gap:platform="android" gap:qualifier="xhdpi" />
-
     <gap:splash src="splash.png" />
+    <gap:splash src="res/screen/android/mdpi.png"       gap:platform="android" gap:qualifier="mdpi" />
+    <gap:splash src="res/screen/android/hdpi.png"       gap:platform="android" gap:qualifier="hdpi" />
+    <gap:splash src="res/screen/android/xhdpi.png"      gap:platform="android" gap:qualifier="xhdpi" />
+    <gap:splash src="res/screen/android/xxhdpi.png"      gap:platform="android" gap:qualifier="xxhdpi" />
+
     <gap:splash src="res/screen/ios/screen-iphone-portrait.png"         gap:platform="ios"     width="320" height="480" />
     <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png"      gap:platform="ios"     width="640" height="960" />
     <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios"     width="640" height="1136" />
