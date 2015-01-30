@@ -170,14 +170,6 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 		
 	});
 
-	$window.addEventListener("offline", function()
-	{
-	$rootScope.$apply(function(){ $rootScope.online = false;});
-	}, false);
-	$window.addEventListener("online", function()
-	{
-	$rootScope.$apply(function() {$rootScope.online = true;});
-	}, false);
 		
 
 	$rootScope.getlibelle = function(data){

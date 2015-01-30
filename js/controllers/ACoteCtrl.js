@@ -12,9 +12,48 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 	var service = new google.maps.DistanceMatrixService();
 
 	$rootScope.etapesPageName = "acotedemoi";
+	
 
-	if( $rootScope.listEtapeTriee != null )
+	$rootScope.displayFiltres = false;
+	$rootScope.toggleFiltres = function(){
+		
+		if( $rootScope.displayFiltres )
+			$rootScope.displayFiltres = false;
+		else 
+			$rootScope.displayFiltres = true;
+
+	};
+
+	$scope.setupLoader = function(){
+		
+		var cl = new CanvasLoader('canvasLoaderAcote');
+		cl.setColor('#ffffff'); // default is '#000000'
+		cl.setShape('spiral'); // default is 'oval'
+		cl.setDensity(16); // default is 40
+		cl.setRange(1.5); // default is 1.3
+		cl.setSpeed(1); // default is 2
+		cl.setFPS(20); // default is 24
+		cl.show(); // Hidden by default
+		
+	};
+
+
+	if( $rootScope.themes != null && $rootScope.themes.length > 0 && $rootScope.selectionsDatas != null )
+	{
+		for( var i=0 ; i< $rootScope.themes.length ; i++ )
+		{
+			if( $rootScope.themes[i].in_all_etapes == true ){
+				var id = $rootScope.themes[i].selection_id;
+				$rootScope.selectionsDatas[id].selected = true;
+			}
+		}
+	}
+
+	if( $rootScope.listEtapeTriee != null ){
+
+		$scope.contentLoading = false;
 		return;
+	}
 
 
 	$scope.contentLoading = true;
@@ -27,6 +66,7 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 
 		var selectionIds = "";
 		$rootScope.selectionsDatas = new Array();
+		$rootScope.typeSelection = new Array();
 		for( var i=0 ; i< $rootScope.themes.length ; i++ )
 		{
 			if( $rootScope.themes[i].in_all_etapes == true ){
@@ -36,7 +76,9 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 				datas.color = $rootScope.themes[i].category_color;
 				datas.name = $rootScope.themes[i].category_short_name;
 				datas.slug = $rootScope.themes[i].category_slug;
+				datas.selected = true;
 				$rootScope.selectionsDatas[datas.selection_id] = datas;
+				$rootScope.typeSelection.push(datas);
 			}
 		}
 		selectionIds = selectionIds.substring(0, selectionIds.length-1);
@@ -133,16 +175,6 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 		$rootScope.$apply();
     }
 
-    $scope.setupLoader = function(){
-		console.log('setupLoader');
-		var cl = new CanvasLoader('canvasLoaderAcote');
-		cl.setColor('#ffffff'); // default is '#000000'
-		cl.setShape('spiral'); // default is 'oval'
-		cl.setDensity(16); // default is 40
-		cl.setRange(1.5); // default is 1.3
-		cl.setSpeed(1); // default is 2
-		cl.setFPS(20); // default is 24
-		cl.show(); // Hidden by default
-		
-	}
+    
+
 }
