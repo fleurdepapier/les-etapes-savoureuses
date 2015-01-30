@@ -153,9 +153,9 @@ a {
 
 /*
 input, textarea{
-	border:none;
-	-webkit-appearance: none;
-	@include border-radius(0px);
+  border:none;
+  -webkit-appearance: none;
+  @include border-radius(0px);
 }
 */
 /* line 74, style.scss */
@@ -607,7 +607,7 @@ body.right .view.ng-enter {
 
 /*
 .page.page-under-header{
-	padding-top: 75px;
+  padding-top: 75px;
 }*/
 /* Anim leave block theme */
 /* line 434, style.scss */
@@ -1065,7 +1065,7 @@ ul.themes-liste.acote-liste li{
   padding-right: 80px;
 }
 ul.themes-liste.acote-liste{
-  margin-bottom: 100px !important;
+  padding-bottom: 100px !important;
 }
 
 ul.themes-liste.acote-liste li p.ng-binding{
@@ -1595,7 +1595,11 @@ margin-bottom: 15px !important;
   cursor: pointer;
 }
 
-#page-jouez .infos{
+.bt-infos.bt-filtre{
+  background-image: url(../img/icon-filtre.png);
+}
+
+#page-jouez .infos, .page-acotedemoi .infos{
   width: 100%;
   padding: 30px;
   background-color: #9d2344;
@@ -1604,7 +1608,7 @@ margin-bottom: 15px !important;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
   position: absolute;
-  top: 50px;
+  top: 50px !important;
   left: 0px;
   z-index: 10;
   line-height: 16px;
@@ -1617,13 +1621,22 @@ margin-bottom: 15px !important;
   display: block !important;
 }
 
-#page-jouez .infos.ng-hide{
-  top: -100%;
+.page-acotedemoi .infos{
+  position: fixed;
+  background-color: #f7f6f2;
+  color: #333;
+  padding-bottom: 30px;
+  top: 50px !important;
+}
+
+
+#page-jouez .infos.ng-hide, .page-acotedemoi .infos.ng-hide{
+  top: -100% !important;
 }
 
 
 
-#page-jouez .infos .titre{
+#page-jouez .infos .titre, .page-acotedemoi .infos .titre{
   display: block;
   font-size: 14px;
   font-family: "GothamRnd-Medium", sans-serif;
@@ -1640,6 +1653,39 @@ margin-bottom: 15px !important;
   text-align: left;
   font-size: 12px;
   line-height: 20px;
+}
+
+.page-acotedemoi .infos p{
+  margin: 0px;
+  width: 100%;
+  height: auto;
+  color: #333;
+  font-family: "Sanchez", "Times New Roman";
+  text-align: left;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.page-acotedemoi .infos ul{
+  list-style-type: none;
+  text-align: left;
+  margin: 0px;
+  padding: 0px;
+  margin-top: 10px;
+}
+
+.page-acotedemoi .infos ul li{
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 10px;
+  font-family: "Sanchez", "Times New Roman";
+  color: #333;
+  font-size: 13px;
+}
+
+.page-acotedemoi .infos ul li label{
+  display: inline-block;
+  margin-left: 5px;
 }
 
 
