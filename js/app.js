@@ -194,10 +194,12 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 	$rootScope.isOnline = navigator.onLine;
 	$window.addEventListener("offline", function()
 	{
+		console.log('offline');
 		$rootScope.$apply(function(){ $rootScope.isOnline = false;});
 	}, false);
 	$window.addEventListener("online", function()
 	{
+		console.log('online');
 		$rootScope.$apply(function() {$rootScope.isOnline = true;});
 	}, false);
 
