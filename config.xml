@@ -107,16 +107,13 @@
     <string>100</string>
     </gap:config-file>
 
-    <gap:config-file platform="android" parent="/manifest">
+    <gap:config-file platform="android" parent="/manifest" mode="merge">
         <supports-screens 
             android:xlargeScreens="true" 
             android:largeScreens="true" 
             android:smallScreens="true" />
-        <application android:theme="@android:style/Theme.NoTitleBar" >
-            <activity android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-            </activity>
-        </application>
     </gap:config-file>
+
 
     <!--
         Define access to external domains.
