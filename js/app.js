@@ -58,7 +58,7 @@ var baseURL = "http://app.dev.lesetapessavoureuses.fr/";
 var baseURLWordpress = "http://dev.lesetapessavoureuses.fr/";
 
 
-app.run(function($window, $rootScope, $location, $resource, $templateCache, $localStorage)
+app.run(function($window, $rootScope, $location, $resource, $templateCache, $localStorage, $timeout)
 {
 	$rootScope.geolocationError = false;
 
@@ -193,6 +193,38 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 	// Detecter les changements de connexion a internet
 	$rootScope.isOnline = navigator.onLine;
 	$rootScope.alertOffline = false;
+	$rootScope.alertAppli = false;
+
+	if( $rootScope.alertAppli == false && version == "site-mobile" ){
+		$rootScope.alertAppli = true;
+		console.log("swal appli");
+		
+		$timeout( function(){ 
+			swal({   
+				title: "Souhaitez vous télécharger l'application mobile ?",   
+				text: "Emportez les étapes savoureuses dans votre poche grâce à l’application mobile.",
+				showCancelButton: true,   
+				confirmButtonColor: "#9d2344",   
+				confirmButtonText: "Oui",   
+				cancelButtonText: "Non, merci",   
+				closeOnConfirm: false,   
+				closeOnCancel: true
+			}, function(isConfirm){
+
+				var system = getMobileOperatingSystem();
+
+				if( isConfirm && system == 'Android' ){
+					window.open('http://www.google.fr/');
+				}
+				if( isConfirm && system == 'iOS' ){
+					window.open('http://www.apple.com/');
+				}
+
+			});
+		} , 2000 );
+
+	}
+
 	$window.addEventListener("offline", function()
 	{
 		$rootScope.$emit('triggerOffline', null );
@@ -214,6 +246,7 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 		$rootScope.$apply(function() {$rootScope.isOnline = true;});
 	}, false);
 
+	$rootScope.version = version;
 
 });
 
@@ -226,4 +259,30 @@ app.filter('unsafe', function($sce) {
 
 if (navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i)) {
     $('html').addClass('ipad ios7');
+}
+
+
+/**
+ * Determine the mobile operating system.
+ * This function either returns 'iOS', 'Android' or 'unknown'
+ *
+ * @returns {String}
+ */
+function getMobileOperatingSystem() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+  {
+    return 'iOS';
+
+  }
+  else if( userAgent.match( /Android/i ) )
+  {
+
+    return 'Android';
+  }
+  else
+  {
+    return 'unknown';
+  }
 }
