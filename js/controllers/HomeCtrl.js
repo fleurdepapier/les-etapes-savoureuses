@@ -37,12 +37,15 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 				$rootScope.$storage.themes = $rootScope.themes;
 			});
 		}
-		console.log( $rootScope.$storage );
 
-		if( $rootScope.isOnline == false && $rootScope.$storage.themes != null ){
+		console.log( $rootScope.$storage );
+		console.log( navigator.onLine );
+
+		if( $rootScope.isOnline == false && $rootScope.$storage.themes != null && navigator.onLine == false ){
 			$rootScope.themes = $rootScope.$storage.themes;
+			$scope.contentLoading = false;
 		}
-		else if( $rootScope.isOnline == false && $rootScope.$storage.themes == null ){
+		else if( $rootScope.isOnline == false && $rootScope.$storage.themes == null  && navigator.onLine == false  ){
 			$scope.connectionProblem = true;
 			$scope.contentLoading = false;
 		}
