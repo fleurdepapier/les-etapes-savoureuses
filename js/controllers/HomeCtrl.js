@@ -50,6 +50,12 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 			$scope.contentLoading = false;
 		}
 	} , 1000 );
+
+
+	$scope.$on('triggerOffline', function(event, args) {
+		$rootScope.themes = $rootScope.$storage.themes;
+		$scope.contentLoading = false;
+    });  
 	
 	
 	$scope.$on('broadcastPageName', function(event, args) {
