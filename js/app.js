@@ -192,16 +192,25 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 
 	// Detecter les changements de connexion a internet
 	$rootScope.isOnline = navigator.onLine;
+	$rootScope.alertOffline = false;
 	$window.addEventListener("offline", function()
 	{
-		console.log('offline');
-
 		$rootScope.$emit('triggerOffline', null );
+		if( $rootScope.alertOffline == false )
+		{
+			$rootScope.alertOffline = true;
+
+			swal({   
+				title: "Attention !",   
+				text: "Vous n'êtes pas connecté à internet. Vous n'aurez donc pas accès à toutes les fonctionnalités du site.",   
+				type: "warning" 
+			});
+
+		}
 		$rootScope.$apply(function(){ $rootScope.isOnline = false;});
 	}, false);
 	$window.addEventListener("online", function()
 	{
-		console.log('online');
 		$rootScope.$apply(function() {$rootScope.isOnline = true;});
 	}, false);
 

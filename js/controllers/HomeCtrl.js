@@ -38,8 +38,6 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 			});
 		}
 
-		console.log( $rootScope.$storage );
-		console.log( navigator.onLine );
 
 		if( $rootScope.isOnline == false && $rootScope.$storage.themes != null && navigator.onLine == false ){
 			$rootScope.themes = $rootScope.$storage.themes;
@@ -55,8 +53,7 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 	$rootScope.$on('triggerOffline', function(event, args) {
 		$rootScope.themes = $rootScope.$storage.themes;
 		$scope.contentLoading = false;
-		console.log('triggerOffline');
-		
+
     });  
 
 	

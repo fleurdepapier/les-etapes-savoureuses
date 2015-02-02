@@ -6,6 +6,8 @@
 
 		<ng-include src="'templates/header.html'"></ng-include>
 
+		<p ng-show="!isOnline" style="text-align:center;color:#333">Vous devez être connecté à internet pour consulter les actualités.</p>
+
 		<div class="block" ng-click="goToActu('actualites/'+actu.slug+'-'+actu.id)" ng-repeat="actu in actus">
 			<div class="content">
 
