@@ -37,7 +37,7 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 				$rootScope.$storage.themes = $rootScope.themes;
 			});
 		}
-
+		console.log( $rootScope.$storage );
 
 		if( $rootScope.isOnline == false && $rootScope.$storage.themes != null ){
 			$rootScope.themes = $rootScope.$storage.themes;
