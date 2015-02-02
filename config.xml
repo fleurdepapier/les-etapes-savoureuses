@@ -85,17 +85,12 @@
     <icon src="res/icons/webos/icon-64.png"          gap:platform="webos" />
 
 
-    <!-- Define app splash screen for each platform. 
+    <!-- Define app splash screen for each platform. -->
     <gap:splash src="splash.png" />
-    -->
     
     <gap:splash src="splash/splash-320x480.png"   gap:platform="ios" width="320"  height="480"  /><!-- Regular iPhone4 -->
     <gap:splash src="splash/splash-640x960.png"   gap:platform="ios" width="640"  height="960"  /><!-- Retina iPhone4 -->
     <gap:splash src="splash/splash-640x1136.png"  gap:platform="ios" width="640"  height="1136" /><!-- iPhone5 -->
-    <gap:splash src="splash/splash-768x1004.png"  gap:platform="ios" width="768"  height="1004" /><!-- iPad Portrait -->
-    <gap:splash src="splash/splash-1024x748.png"  gap:platform="ios" width="1024" height="748"  /><!-- iPad Landscape -->
-    <gap:splash src="splash/splash-1536x2008.png" gap:platform="ios" width="1536" height="2008" /><!-- Retina iPad Portrait - Requires PhoneGap 2.5.0+ -->
-    <gap:splash src="splash/splash-2048x1496.png" gap:platform="ios" width="2048" height="1496" /><!-- Retina iPad Landscape - Requires PhoneGap 2.5.0+ -->
     <gap:splash src="splash/splash-750x1334.png"  gap:platform="ios" width="750" height="1334"  /><!-- iPhone6 Portrait -->
     <gap:splash src="splash/splash-1242x2208.png"  gap:platform="ios" width="1242" height="2208"  /><!-- iPhone6+ Portrait -->
     <gap:splash src="splash/splash-2208x1242.png"  gap:platform="ios" width="2208" height="1242"  /><!-- iPhone6+ Landscape -->
