@@ -52,11 +52,13 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 	} , 1000 );
 
 
-	$scope.$on('triggerOffline', function(event, args) {
+	$rootScope.$on('triggerOffline', function(event, args) {
 		$rootScope.themes = $rootScope.$storage.themes;
 		$scope.contentLoading = false;
+		console.log('triggerOffline');
+		
     });  
-	
+
 	
 	$scope.$on('broadcastPageName', function(event, args) {
 		$scope.pageName = args.pageName;
