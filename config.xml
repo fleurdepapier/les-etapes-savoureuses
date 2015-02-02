@@ -3,7 +3,7 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.helloworld"
+        id        = "com.fleurdepapier.lesetapessavoureuses"
         version   = "1.0.0">
 
     <name>Les étapes savoureuses - Application mobile</name>
@@ -24,9 +24,9 @@
     <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
+    <preference name="Orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
-    <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
+    <preference name="Fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
     <preference name="webviewbounce"              value="true" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
     <preference name="prerendered-icon"           value="true" />           <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
     <preference name="stay-in-webview"            value="false" />          <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
@@ -42,7 +42,7 @@
         Define a specific version of PhoneGap to build into your app.
         <preference name="phonegap-version"       value="3.5.0" />
     -->
-
+    <activity android:theme="@android:style/Theme.NoTitleBar.Fullscreen" ></activity>
     <!-- Plugins -->
 
     <!-- Core plugins -->
@@ -64,6 +64,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+    <gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" version="1.1.0" />
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
@@ -85,9 +86,9 @@
     <icon src="res/icons/webos/icon-64.png"          gap:platform="webos" />
 
 
-    <!-- Define app splash screen for each platform. -->
-    <gap:splash src="splash.png" />
-    
+    <!-- Define app splash screen for each platform. 
+    <gap:splash src="splash.png" />-->
+    <preference name="SplashScreen" value="splash" />
     <gap:splash src="splash/splash-320x480.png"   gap:platform="ios" width="320"  height="480"  /><!-- Regular iPhone4 -->
     <gap:splash src="splash/splash-640x960.png"   gap:platform="ios" width="640"  height="960"  /><!-- Retina iPhone4 -->
     <gap:splash src="splash/splash-640x1136.png"  gap:platform="ios" width="640"  height="1136" /><!-- iPhone5 -->
