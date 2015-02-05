@@ -6,12 +6,10 @@
 
 	<div class="page-acotedemoi" class="list-etapes">
 
-		
 
-		<p class="error" ng-show="geolocationError">Impossible de vous géolocaliser</p>
+		<p class="error window-connect" ng-show="geolocationError || error || isOnline == false">Attention ! Impossible de vous géolocaliser. Vérifiez votre connexion internet.</p>
 
 		<ul class="themes-liste acote-liste" >
-
 
 			<li ng-show="selectionsDatas[etape.idSelection].selected" ng-repeat="etape in listEtapeTriee" style="background-color:{{theme.category_color}};" ng-click="goToFiche(etape.id);"  >
 				<span ng-if="etape.imagePrincipale.traductionFichiers[0].url != null" class="etape-image" style="background-image:url({{etape.imagePrincipale.traductionFichiers[0].url}});"></span>
@@ -22,8 +20,9 @@
 				</span>
 
 				<span class="nb-etapes">
-						<span class="chiffre">{{etape.km.valueRounded}}</span>
-						<span class="label">KM</span>
+					<div ng-hide="isOnline" class="spinner-km loading" ><div ng-attr-id="canvasLoaderKM-{{etape.id}}" ng-init="setupKMLoader(etape.id)" class="loader-wrapper"></div></div>
+					<span ng-show="isOnline" class="chiffre">{{etape.km.valueRounded}}</span>
+					<span ng-show="isOnline" class="label">KM</span>
 				</span>
 
 			</li>

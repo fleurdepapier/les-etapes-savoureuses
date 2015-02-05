@@ -47,6 +47,9 @@ app.config(['$routeProvider', function($routeProvider) {
 	.when('/application-mobile', {
 		templateUrl: 'templates/application.html',
 	})
+	.when('/connexion-problem', {
+		templateUrl: 'templates/connexion-problem.html',
+	})
 	.otherwise({
 		redirectTo: '/home/themes'
 	});
@@ -61,6 +64,7 @@ var baseURLWordpress = "http://dev.lesetapessavoureuses.fr/";
 app.run(function($window, $rootScope, $location, $resource, $templateCache, $localStorage, $timeout)
 {
 	$rootScope.geolocationError = false;
+	$rootScope.themesLoaded = false;
 
 	$rootScope.getPosition = function(){
 		if( $rootScope.currentLatitude != null && $rootScope.currentLongitude != null )
@@ -89,6 +93,19 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 
 	$rootScope.$storage = $localStorage.$default({ });
 
+	if( $rootScope.$storage.listeEtapesInStorage == null)
+		$rootScope.$storage.listeEtapesInStorage = new Array();
+
+	if( $rootScope.$storage.listeAllEtapes == null)
+		$rootScope.$storage.listeAllEtapes = new Array();
+
+	if( $rootScope.$storage.images == null)
+		$rootScope.$storage.images = new Array();
+
+	$rootScope.$storage.listeEtapesLoaded = new Array();
+	$rootScope.allEtapesForMap = null;
+	$rootScope.listEtapeTriee = null;
+
 	$rootScope.firstBuild = 'first-build';
 	var firstCall = true;
 
@@ -106,6 +123,8 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 	}
 
 	$rootScope.$on('$routeChangeStart', function(next, current){	
+
+		$rootScope.isOnline = navigator.onLine ;
 
 		if( current.$$route != null )
 		{
@@ -197,12 +216,11 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 
 	if( $rootScope.alertAppli == false && version == "site-mobile" ){
 		$rootScope.alertAppli = true;
-		console.log("swal appli");
 		
 		$timeout( function(){ 
 			swal({   
-				title: "Souhaitez vous télécharger l'application mobile ?",   
-				text: "Emportez les étapes savoureuses dans votre poche grâce à l’application mobile.",
+				title: "Souhaitez-vous télécharger l'application mobile ?",   
+				text: "Emportez les étapes savoureuses avec vous !",
 				showCancelButton: true,   
 				confirmButtonColor: "#9d2344",   
 				confirmButtonText: "Oui",   
@@ -225,6 +243,7 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 
 	}
 
+
 	$window.addEventListener("offline", function()
 	{
 		$rootScope.$emit('triggerOffline', null );
@@ -237,16 +256,22 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 				text: "Vous n'êtes pas connecté à internet. Vous n'aurez donc pas accès à toutes les fonctionnalités du site.",   
 				type: "warning" 
 			});
+			$location.path('/home/themes');
 
 		}
 		$rootScope.$apply(function(){ $rootScope.isOnline = false;});
 	}, false);
+
+	
 	$window.addEventListener("online", function()
 	{
 		$rootScope.$apply(function() {$rootScope.isOnline = true;});
 	}, false);
-
+	
 	$rootScope.version = version;
+
+
+	
 
 });
 

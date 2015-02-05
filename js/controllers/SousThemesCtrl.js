@@ -18,71 +18,9 @@ function SousThemesCtrl($scope, $routeParams, $http, $rootScope, $location, $tim
 	$scope.headerRetourHref = "#/home/themes";
 
 
-	$timeout( function(){
-		$scope.contentLoading = true;
-		
-		if( $scope.theme.sub_cat == false )
-		{
-			// Il n'y a pas de sous cat, on va chercher la liste des étapes
-			var url = baseURLWordpress+'sitra/requetesitra.php?selectionIds='+$scope.theme.selection_id;
-			
-			// On lance la requette un peu apres pour que l'animation soit fluide
+	// Functions
 
-			if( $rootScope.isOnline == true ){
-				$http.get(url).success(function(response){
-					$scope.listeEtapes =  $rootScope.randomizeArray(response.objetsTouristiques);
-					$scope.contentLoading = false;
-					
-					if( $rootScope.$storage.listeEtapes == null )
-						$rootScope.$storage.listeEtapes = new Array();
-
-					$rootScope.$storage.listeEtapes[''+$scope.theme.selection_id] = $scope.listeEtapes;
-				});
-			}
-
-			if( $rootScope.isOnline == false && $rootScope.$storage.listeEtapes != null && $rootScope.$storage.listeEtapes[''+$scope.theme.selection_id] != null){
-				$scope.listeEtapes = $rootScope.$storage.listeEtapes[''+$scope.theme.selection_id];
-			}
-			else if( $rootScope.isOnline == false && ( $rootScope.$storage.listeEtapes == null || $rootScope.$storage.listeEtapes[''+$scope.theme.selection_id] == null ) ){
-				$location.path("home/themes");
-			}
-
-		}
-		else{
-			// On lance les requettes de chaque selections pour récupérer le nombre d'étapes de chaque categories
-			for( var i = 0 ; i < $scope.theme.sub_cat.length ; i++ )
-			{
-				
-				var url = baseURLWordpress+'/sitra/getNumFounds.php?selectionIds='+$scope.theme.sub_cat[i].sub_cat_selection_id;
-
-				if( $rootScope.isOnline == true ){
-					$http.get(url).success(function(response){
-
-						for( var j = 0 ; j < $scope.theme.sub_cat.length ; j++ )
-						{
-							console.log("query");
-							if( response.query.selectionIds[0] == $scope.theme.sub_cat[j].sub_cat_selection_id ){
-								$scope.theme.sub_cat[j].numFound = response.numFound;
-								$scope.contentLoading = false;
-								return;
-							}
-						}
-					});
-				}
-				else{
-					$scope.contentLoading = false;
-				}
-				
-			}
-		}
-
-	} , 1000 );
-	
-
-	
-
-
-    $scope.updateAnimRetour = function($animRetour) {
+	$scope.updateAnimRetour = function($animRetour) {
         $scope.animRetour = $animRetour;
         $rootScope.$broadcast('broadcastAnimRetour', { animRetour: $scope.animRetour });
     };
@@ -116,4 +54,97 @@ function SousThemesCtrl($scope, $routeParams, $http, $rootScope, $location, $tim
 		cl.show(); // Hidden by default
 		
 	}
+
+
+	// Init page
+
+
+	// on teste d'abord si on a déjà chargé cette liste ou non:
+	var indexInLoaded = $rootScope.$storage.listeEtapesLoaded.indexOf($scope.theme.selection_id);
+	var indexInStorage = $rootScope.$storage.listeEtapesInStorage.indexOf($scope.theme.selection_id);
+		
+	if( $scope.theme.sub_cat == false )
+	{
+		if( indexInLoaded != -1 || ( indexInStorage != -1 && $rootScope.isOnline == false ) ){
+			// la liste a déjà été chargée depuis l'ouverture du site
+			// on recupere le local storage et empeche d'aller chercher en ligne inutilement
+			$scope.listeEtapes = $rootScope.$storage.listeEtapes[''+$scope.theme.selection_id];
+			return;
+		}
+
+		// Si on est pas connecté à internet et que l'on a pas encore pu charger les différentes étapes, retour à l'accueil
+		if( $rootScope.isOnline == false && indexInStorage == -1 ){
+			
+			swal({ 
+				title: 'Attention !',  
+				text: "Impossible d'afficher cette page car vous n'êtes pas connecté à internet.",   
+				type: "warning" 
+			});
+			$location.path("home/themes");
+		}
+	}
+
+
+	$timeout( function(){
+		$scope.contentLoading = true;
+		
+		if( $scope.theme.sub_cat == false )
+		{
+			// Il n'y a pas de sous cat, on va chercher la liste des étapes
+			var url = baseURLWordpress+'sitra/requetesitra.php?selectionIds='+$scope.theme.selection_id;
+			
+			// On lance la requette un peu apres pour que l'animation soit fluide
+			
+			if( $rootScope.isOnline == true ){
+				$http.get(url).success(function(response){
+					$scope.listeEtapes =  $rootScope.randomizeArray(response.objetsTouristiques);
+					$scope.contentLoading = false;
+					
+					if( $rootScope.$storage.listeEtapes == null )
+						$rootScope.$storage.listeEtapes = new Array();
+
+					$rootScope.$storage.listeEtapes[''+$scope.theme.selection_id] = $scope.listeEtapes;
+					$rootScope.$storage.listeEtapesLoaded.push($scope.theme.selection_id);
+
+					if( indexInStorage == -1 )	
+						$rootScope.$storage.listeEtapesInStorage.push($scope.theme.selection_id);
+				});
+			}
+			
+
+		}
+		else{
+			// On lance les requettes de chaque selections pour récupérer le nombre d'étapes de chaque categories
+			for( var i = 0 ; i < $scope.theme.sub_cat.length ; i++ )
+			{
+				
+				var url = baseURLWordpress+'/sitra/getNumFounds.php?selectionIds='+$scope.theme.sub_cat[i].sub_cat_selection_id;
+
+				if( $rootScope.isOnline == true ){
+					$http.get(url).success(function(response){
+
+						for( var j = 0 ; j < $scope.theme.sub_cat.length ; j++ )
+						{
+							if( response.query.selectionIds[0] == $scope.theme.sub_cat[j].sub_cat_selection_id ){
+								$scope.theme.sub_cat[j].numFound = response.numFound;
+								$scope.contentLoading = false;
+								return;
+							}
+						}
+					});
+				}
+				else{
+					$scope.contentLoading = false;
+				}
+				
+			}
+		}
+
+	} , 1000 );
+	
+
+	
+
+
+   
 }

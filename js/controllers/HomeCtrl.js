@@ -17,24 +17,27 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 	$rootScope.currentSousTheme = null;
 
 	$scope.connectionProblem = false;
+
+
 	/*
 	$http.get('datas/datas.json').then(function(res){
         $scope.themes = res.data.themes;           
     });
 	*/
 
-	//$rootScope.isOnline = false;
+	
 
 	$timeout( function(){
 
 		$scope.contentLoading = true;
 
-		if( $rootScope.themes == null && $rootScope.isOnline == true ){
+		if( $rootScope.themes == null && $rootScope.isOnline == true && $rootScope.themesLoaded == false ){
 			var WPAPI = $resource(baseURLWordpress+'?wpapi=get_posts&dev=1&type=page&id=16', null, {'query' : {method:'GET', params:{isArray:false}} });
 			WPAPI.query( null, function(datas){
 				$scope.contentLoading = false;
 				$rootScope.themes = datas.posts[0].custom_fields.category;
 				$rootScope.$storage.themes = $rootScope.themes;
+				$rootScope.themesLoaded = true;
 			});
 		}
 
@@ -90,6 +93,42 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 		cl.setFPS(20); // default is 24
 		cl.show(); // Hidden by default
 		
+	}
+
+	$rootScope.imgToStorage = function(imgSrc){
+		var img = new Image();
+		
+		img.onload = function () {
+	 
+	        var canvas = document.createElement("canvas");
+	        canvas.width =this.width;
+	        canvas.height =this.height;
+
+	        var ctx = canvas.getContext("2d");
+	        ctx.drawImage(this, 0, 0);
+
+
+	        var dataURL = canvas.toDataURL("image/png");
+
+	        $rootScope.$storage.images[imgSrc] = dataURL;//.replace(/^data:image\/(png|jpg);base64,/, "");
+	        console.log($rootScope.$storage.images);
+	        $rootScope.$apply();
+        }
+
+		img.crossOrigin = "Anonymous";
+        img.src = imgSrc;
+
+	}
+
+	$rootScope.imgFromStorage = function(imgSrc)	{
+
+		if( $rootScope.$storage.images[imgSrc] == null )
+		{
+			$rootScope.$storage.images[imgSrc] = ""; // valeur qui va être remplie
+			$rootScope.imgToStorage(imgSrc);
+		}
+
+		return $rootScope.$storage.images[imgSrc];
 	}
 
     

@@ -9,6 +9,13 @@ function NavCtrl($scope, $rootScope, $location, $resource)
 {
 
     $rootScope.goToPage = function(page){
+    	
+    	$rootScope.isOnline = navigator.onLine ;
+
+    	if( $rootScope.isOnline == false && page != "home/themes" ){
+    		$location.path('connexion-problem');
+    		return;
+    	}
     	$location.path(page);
     }
 	

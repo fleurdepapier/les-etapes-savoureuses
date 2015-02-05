@@ -1086,6 +1086,23 @@ p.error{
   margin-bottom: 100px;
 }
 
+p.window-connect.error{
+  position: fixed;
+  top: 0px;
+  left: 10%;
+  display: block;
+  width: 80%;
+  background-color: white;
+  z-index: 10000000000;
+  color: #333;
+  line-height: 20px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 20px;
+}
+
+
 ul.themes-liste li p.type {
   font-family: "GothamRnd-Medium", sans-serif;
   clear: both;
@@ -1605,6 +1622,27 @@ margin-bottom: 15px !important;
 .bt-infos.bt-filtre{
   background-image: url(../img/icon-filtre.png);
 }
+
+.page-acotedemoi .cover{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  display: block;
+  -webkit-transition: opacity ease-out 0.5s;
+  -moz-transition: opacity ease-out 0.5s;
+  -o-transition: opacity ease-out 0.5s;
+  transition: opacity ease-out 0.5s;
+  z-index: 1;
+}
+.page-acotedemoi .cover.close{
+  top: -100%;
+  opacity: 0;
+}
+
 
 #page-jouez .infos, .page-acotedemoi .infos{
   width: 100%;

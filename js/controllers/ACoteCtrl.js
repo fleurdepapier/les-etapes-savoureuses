@@ -9,7 +9,9 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 {
 
 	var placesIndex = -1;
-	var service = new google.maps.DistanceMatrixService();
+	
+	if( $rootScope.isOnline )
+		var service = new google.maps.DistanceMatrixService();
 
 	$rootScope.etapesPageName = "acotedemoi";
 	
@@ -37,6 +39,23 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 		
 	};
 
+	$scope.setupKMLoader = function(id){
+		$timeout( function(){
+	
+			var cl = new CanvasLoader('canvasLoaderKM-'+id);
+			cl.setColor('#e8e8d9'); // default is '#000000'
+			cl.setShape('spiral'); // default is 'oval'
+			cl.setDiameter(16); // default is 40
+			cl.setDensity(12); // default is 40
+			cl.setRange(1.2); // default is 1.3
+			cl.setSpeed(1); // default is 2
+			cl.setFPS(22); // default is 24
+			cl.show(); // Hidden by default
+
+		} , 1000 );
+		
+	}
+
 
 	if( $rootScope.themes != null && $rootScope.themes.length > 0 && $rootScope.selectionsDatas != null )
 	{
@@ -49,7 +68,38 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 		}
 	}
 
-	if( $rootScope.listEtapeTriee != null ){
+
+
+	$rootScope.geolocationError = false;
+    $rootScope.listEtapeTriee = new Array();
+
+	$scope.origin = new google.maps.LatLng($rootScope.currentLatitude, $rootScope.currentLongitude);
+
+	var selectionIds = "";
+	$rootScope.selectionsDatas = new Array();
+	$rootScope.typeSelection = new Array();
+	for( var i=0 ; i< $rootScope.themes.length ; i++ )
+	{
+		if( $rootScope.themes[i].in_all_etapes == true ){
+			selectionIds += $rootScope.themes[i].selection_id+",";
+			datas = new Object();
+			datas.selection_id = $rootScope.themes[i].selection_id;
+			datas.color = $rootScope.themes[i].category_color;
+			datas.name = $rootScope.themes[i].category_short_name;
+			datas.slug = $rootScope.themes[i].category_slug;
+			datas.selected = true;
+			$rootScope.selectionsDatas[datas.selection_id] = datas;
+			$rootScope.typeSelection.push(datas);
+		}
+	}
+	selectionIds = selectionIds.substring(0, selectionIds.length-1);
+
+
+	if( ( $rootScope.listEtapeTriee != null || $rootScope.listEtapeTriee.length == 0 ) && $rootScope.isOnline == false ){
+
+		if( $rootScope.$storage.listeAllEtapes != null ){
+			$rootScope.listEtapeTriee = $rootScope.$storage.listeAllEtapes;
+		}
 
 		$scope.contentLoading = false;
 		return;
@@ -59,36 +109,15 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 	$scope.contentLoading = true;
 
 	$rootScope.$on('acote-handler', function(event, args){ 
-		$rootScope.geolocationError = false;
-	    $rootScope.listEtapeTriee = new Array();
-
-		$scope.origin = new google.maps.LatLng($rootScope.currentLatitude, $rootScope.currentLongitude);
-
-		var selectionIds = "";
-		$rootScope.selectionsDatas = new Array();
-		$rootScope.typeSelection = new Array();
-		for( var i=0 ; i< $rootScope.themes.length ; i++ )
-		{
-			if( $rootScope.themes[i].in_all_etapes == true ){
-				selectionIds += $rootScope.themes[i].selection_id+",";
-				datas = new Object();
-				datas.selection_id = $rootScope.themes[i].selection_id;
-				datas.color = $rootScope.themes[i].category_color;
-				datas.name = $rootScope.themes[i].category_short_name;
-				datas.slug = $rootScope.themes[i].category_slug;
-				datas.selected = true;
-				$rootScope.selectionsDatas[datas.selection_id] = datas;
-				$rootScope.typeSelection.push(datas);
-			}
-		}
-		selectionIds = selectionIds.substring(0, selectionIds.length-1);
+		
 
 		var url = baseURLWordpress+'/sitra/requeteSitraMultiSelection.php?selectionIds='+selectionIds;
 
 		$http.get(url).success(function(response){
 
 			$scope.listEtapesProches = new Array();
-			
+			$rootScope.$storage.listeAllEtapes = new Array();
+
 			for( var i=0 ; i<response.response.length ; i++ ){
 
 				for( var j=0 ; j<response.response[i].objetsTouristiques.length ; j++ )
@@ -103,13 +132,21 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 							response.response[i].objetsTouristiques[j].idSelection = response.response[i].query.selectionIds[0];
 							response.response[i].objetsTouristiques[j].destination = destination;
 							$scope.listEtapesProches.push( response.response[i].objetsTouristiques[j] );
-
+							$rootScope.$storage.listeAllEtapes.push( response.response[i].objetsTouristiques[j] );
 						}
 					}
 				}
 			}
 			$scope.calculateDistance(null,null);
 				
+		}).error( function(){
+			$rootScope.listEtapeTriee = null;
+
+			if( $rootScope.$storage.listeAllEtapes != null )
+				$rootScope.listEtapeTriee = $rootScope.$storage.listeAllEtapes;
+
+			$scope.contentLoading = false;
+			$scope.error = true;
 		});
 
 			
@@ -120,8 +157,8 @@ function ACoteCtrl($scope, $routeParams, $http, $rootScope, $location, $resource
 	$timeout( function(){
 	
 		if( $rootScope.currentLatitude != null && $rootScope.currentLongitude != null ){
-			$rootScope.$broadcast('acote-handler');
 			$scope.error = false;
+			$rootScope.$broadcast('acote-handler');
 		}
 		else{
 			$scope.error = true;

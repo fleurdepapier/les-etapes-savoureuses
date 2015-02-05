@@ -8,58 +8,11 @@ function CarteCtrl($scope, $rootScope, $http, $location, $timeout)
 {
 	$scope.markerRollOver = -1;
 	$scope.scrollPos = 0;
-	// TO DO - Call sitra
+
 	$rootScope.$broadcast('rebuild:me');
 	$rootScope.etapesPageName = "carte";
-	
-	var selectionIds = "";
-	$rootScope.selectionsDatas = new Array();
-	for( var i=0 ; i< $rootScope.themes.length ; i++ )
-	{
-		if( $rootScope.themes[i].in_all_etapes == true ){
-			selectionIds += $rootScope.themes[i].selection_id+",";
-			datas = new Object();
-			datas.selection_id = $rootScope.themes[i].selection_id;
-			datas.color = $rootScope.themes[i].category_color;
-			datas.name = $rootScope.themes[i].category_short_name;
-			datas.slug = $rootScope.themes[i].category_slug;
-			$rootScope.selectionsDatas[datas.selection_id] = datas;
-		}
-	}
-	selectionIds = selectionIds.substring(0, selectionIds.length-1);
 
-    var url = baseURLWordpress+'/sitra/requeteSitraMultiSelection.php?selectionIds='+selectionIds;
-
-	$rootScope.$on('mapInitialized', function(event, map) {
-		$scope.map = map; 
-		var search = $location.search();
-		if( search != null && search.c != null && search.c == "all" )
-			$scope.setupMap(map);
-	});
-	
-
-	$timeout( function(){
-
-		$http.get(url).success(function(response){
-
-			var etapes = new Array();
-			for( var i=0 ; i<response.response.length ; i++ ){
-
-				for( var j=0 ; j<response.response[i].objetsTouristiques.length ; j++ )
-				{
-					response.response[i].objetsTouristiques[j].idSelection = response.response[i].query.selectionIds[0];
-					etapes.push( response.response[i].objetsTouristiques[j] );
-				}
-			}
-
-			$scope.listeEtapes = $rootScope.randomizeArray(etapes);
-
-			$scope.setupMap($scope.map);
-		});
-
-	
-	} , 500 );
-
+	// Functions
 	$rootScope.randomizeArray = function(array){
 	    for (var i = array.length - 1; i > 0; i--) {
 	        var j = Math.floor(Math.random() * (i + 1));
@@ -131,7 +84,7 @@ function CarteCtrl($scope, $rootScope, $http, $location, $timeout)
 			var markerCluster = new MarkerClusterer(map, $scope.allCatMarkers);
 
 			if( $rootScope.currentLatitude != null && $rootScope.currentLongitude != null ){
-				console.log("geolocalisation");
+				
 				var path = "M 10.24,224A245.76,245.76 180 1 1 501.76,224A245.76,245.76 180 1 1 10.24,224z";
 				var marker = new google.maps.Marker(
 				{ 
@@ -163,13 +116,13 @@ function CarteCtrl($scope, $rootScope, $http, $location, $timeout)
 	$scope.centerToLocation = function(){
 		if( $rootScope.currentLatitude != null && $rootScope.currentLongitude != null ){
 			var loc = new google.maps.LatLng($rootScope.currentLatitude, $rootScope.currentLongitude);
-			$scope.map.setCenter(loc);
-			$scope.map.setZoom(14);
+			$rootScope.map.setCenter(loc);
+			$rootScope.map.setZoom(14);
 		}
 	}
 
 	$scope.setupLoader = function(){
-		console.log('setupLoader');
+		
 		var cl = new CanvasLoader('canvasLoader');
 		cl.setColor('#ffffff'); // default is '#000000'
 		cl.setShape('spiral'); // default is 'oval'
@@ -180,4 +133,69 @@ function CarteCtrl($scope, $rootScope, $http, $location, $timeout)
 		cl.show(); // Hidden by default
 		
 	}
+
+
+	// Init page 
+
+
+
+	// Sinon requete sitra :	
+	var selectionIds = "";
+	$rootScope.selectionsDatas = new Array();
+	for( var i=0 ; i< $rootScope.themes.length ; i++ )
+	{
+		if( $rootScope.themes[i].in_all_etapes == true ){
+			selectionIds += $rootScope.themes[i].selection_id+",";
+			datas = new Object();
+			datas.selection_id = $rootScope.themes[i].selection_id;
+			datas.color = $rootScope.themes[i].category_color;
+			datas.name = $rootScope.themes[i].category_short_name;
+			datas.slug = $rootScope.themes[i].category_slug;
+			$rootScope.selectionsDatas[datas.selection_id] = datas;
+		}
+	}
+	selectionIds = selectionIds.substring(0, selectionIds.length-1);
+
+    var url = baseURLWordpress+'/sitra/requeteSitraMultiSelection.php?selectionIds='+selectionIds;
+
+	$rootScope.$on('mapInitialized', function(event, map) {
+		$rootScope.map = map; 
+		var search = $location.search();
+		if( search != null && search.c != null && search.c == "all" )
+			$scope.setupMap(map);
+	});
+	
+
+	$timeout( function(){
+
+		if( $rootScope.allEtapesForMap == null ){
+
+			$http.get(url).success(function(response){
+
+				var etapes = new Array();
+				for( var i=0 ; i<response.response.length ; i++ ){
+
+					for( var j=0 ; j<response.response[i].objetsTouristiques.length ; j++ )
+					{
+						response.response[i].objetsTouristiques[j].idSelection = response.response[i].query.selectionIds[0];
+						etapes.push( response.response[i].objetsTouristiques[j] );
+					}
+				}
+
+				$scope.listeEtapes = $rootScope.randomizeArray(etapes);
+				$rootScope.allEtapesForMap = $scope.listeEtapes;
+
+				$scope.setupMap($rootScope.map);
+			});
+
+		}
+		else{
+			$scope.listeEtapes = $rootScope.allEtapesForMap;
+			$scope.setupMap($rootScope.map);
+		}
+		
+	
+	} , 500 );
+
+	
 }

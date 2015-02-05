@@ -7,15 +7,20 @@
 			<li snap-toggle class="etapes" ng-class="{active: pageName=='etapes'}" ng-click="goToPage('home/themes')" >
 				<span>Quelle sera<br />votre prochaine étape ?</span>
 			</li>
-			<li ng-show="isOnline" snap-toggle class="actualites" ng-class="{active: pageName=='actualites'}" ng-click="goToPage('actualites')" >
+			<li snap-toggle class="actualites" ng-class="{active: pageName=='actualites'}" ng-click="goToPage('actualites')" >
 				<span>Actualités</span>
 			</li>
-			<li ng-show="isOnline" snap-toggle class="jouer" ng-class="{active: pageName=='jouer'}" ng-click="goToPage('jouer')" >
+			<li snap-toggle class="jouer" ng-class="{active: pageName=='jouer'}" ng-click="goToPage('jouer')" >
 				<span>Jouer</span>
 			</li>
-			<li ng-hide="version == 'site-mobile'" snap-toggle class="appli" ng-class="{active: pageName=='application-mobile'}" ng-click="goToPage('application-mobile')" >
+			<li ng-show="version == 'site-mobile'" snap-toggle class="appli" ng-class="{active: pageName=='application-mobile'}" ng-click="goToPage('application-mobile')" >
 				<span>Application mobile</span>
 			</li>
+
+			<li ng-hide="isOnline" snap-toggle class="about" ng-click="goToPage('connexion-problem')" >
+				<span>A propos</span>
+			</li>
+			
 			<li ng-show="isOnline" ng-click="isReglagesOpen = false ; isAboutOpen = !isAboutOpen"  class="about parent" ng-class="{open: isAboutOpen || pageName=='apropos' }">
 				<span>A propos</span>
 			</li>
