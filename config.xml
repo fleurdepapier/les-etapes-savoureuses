@@ -108,10 +108,6 @@
     <gap:config-file platform="ios" parent="CFBundleShortVersionString">
     <string>100</string>
     </gap:config-file>
-    
-    <gap:config-file platform="android" parent="/manifest">
-        <application android:theme="@android:style/Theme.NoTitleBar"></application>
-    </gap:config-file>
 
     <!--
         Define access to external domains.
