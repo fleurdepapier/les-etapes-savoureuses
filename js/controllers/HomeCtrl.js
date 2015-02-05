@@ -29,6 +29,10 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 
 	$timeout( function(){
 
+		if (geoPosition.init()) {
+		   $rootScope.getPosition();
+		}
+
 		$scope.contentLoading = true;
 
 		if( $rootScope.themes == null && $rootScope.isOnline == true && $rootScope.themesLoaded == false ){

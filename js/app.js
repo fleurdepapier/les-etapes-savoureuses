@@ -83,9 +83,7 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 		$rootScope.geolocationError = true;
 	}
 
-	if (geoPosition.init()) {
-	   $rootScope.getPosition();
-	}
+	
 
 	$templateCache.removeAll();
 	$rootScope.themes == null;
