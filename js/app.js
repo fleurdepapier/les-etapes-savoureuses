@@ -3,9 +3,9 @@
 var currentLanguage = "fr";
 
 
-var app = new angular.module('app', ['ngRoute', 'appControllers', 'ngAnimate', 'snap', 'ngStorage', 'ngTouch', 'ngResource', 'ngMap', 'ngSanitize']);
+var ngapp = new angular.module('ngapp', ['ngRoute', 'appControllers', 'ngAnimate', 'snap', 'ngStorage', 'ngTouch', 'ngResource', 'ngMap', 'ngSanitize']);
 
-app.config(['$routeProvider', function($routeProvider) {
+ngapp.config(['$routeProvider', function($routeProvider) {
 	
 	$routeProvider
 	.when('/home/:page', {
@@ -57,14 +57,40 @@ app.config(['$routeProvider', function($routeProvider) {
 }]);
 
 
-var baseURL = "http://app.dev.lesetapessavoureuses.fr/";
-var baseURLWordpress = "http://dev.lesetapessavoureuses.fr/";
+var baseURL = "http://www.lesetapessavoureuses.fr/lesetapessavoureuses-app/";
+var baseURLWordpress = "http://www.lesetapessavoureuses.fr/";
+
+if( lang == "en" )
+	baseURLWordpress = "http://en.lesetapessavoureuses.fr/";
 
 
-app.run(function($window, $rootScope, $location, $resource, $templateCache, $localStorage, $timeout)
+ngapp.run(function($window, $rootScope, $location, $resource, $templateCache, $localStorage, $timeout, $http)
 {
 	$rootScope.geolocationError = false;
 	$rootScope.themesLoaded = false;
+
+
+	// Traduction 
+	$rootScope.trads = null;
+	$rootScope.lang = lang;
+
+	if( $rootScope.lang == null )
+		$rootScope.lang = "fr";
+
+	$http.get('datas/trad.json').success(function(datas){
+		////console.log(datas);
+		$rootScope.trads = datas;
+		$rootScope.loadingTrad = $rootScope.getTrad("loading");
+	});
+	$rootScope.getTrad = function(id){
+		if( $rootScope.trads[id] == null )
+			return "";
+
+		if( $rootScope.lang == "en" )
+			return $rootScope.trads[id]['en'];
+
+		return $rootScope.trads[id]['fr'];
+	}
 
 	$rootScope.getPosition = function(){
 		if( $rootScope.currentLatitude != null && $rootScope.currentLongitude != null )
@@ -83,11 +109,14 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 		$rootScope.geolocationError = true;
 	}
 
-	
+	/*if (geoPosition.init()) {
+	   $rootScope.getPosition();
+	}*/
 
 	$templateCache.removeAll();
 	$rootScope.themes == null;
 	$rootScope.online = navigator.onLine;
+	$rootScope.stopLoadingACote = false;
 
 	$rootScope.$storage = $localStorage.$default({ });
 
@@ -99,6 +128,9 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 
 	if( $rootScope.$storage.images == null)
 		$rootScope.$storage.images = new Array();
+	if( $rootScope.$storage.imagesID == null)
+		$rootScope.$storage.imagesID = new Array();
+
 
 	$rootScope.$storage.listeEtapesLoaded = new Array();
 	$rootScope.allEtapesForMap = null;
@@ -123,12 +155,15 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 	$rootScope.$on('$routeChangeStart', function(next, current){	
 
 		$rootScope.isOnline = navigator.onLine ;
+		$rootScope.stopLoadingACote = true;
+
+//    	$(window).trigger("resize.doResize");
 
 		if( current.$$route != null )
 		{
 			var currentName = $rootScope.currentCtrl;
 			var nextName = current.$$route.controller;
-			console.log(currentName, nextName);
+			//console.log(currentName, nextName);
 			if( currentName == null )
 			{
 				$rootScope.animSide = "no-anim";
@@ -190,16 +225,23 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 		
 	});
 
+	$rootScope.$on('$routeChangeSuccess', function(next, current){	
+
+    	$(window).trigger("resize.doResize");
+
+    });
+
 		
 
 	$rootScope.getlibelle = function(data){
+		////console.log("getlibelle :" +data);
 		if( data == null )
 			return null;
 
-		if( currentLanguage == "en" && data.libelleEn != null ){
+		if( $rootScope.lang == "en" && data.libelleEn != null ){
 			return data.libelleEn;
 		}
-		else if( currentLanguage == "fr" && data.libelleFr != null ){
+		else if( $rootScope.lang == "fr" && data.libelleFr != null ){
 			return data.libelleFr;
 		}
 		else{
@@ -207,22 +249,28 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 		}
 	}
 
+	$rootScope.replaceN = function(data){
+		if( data != null )	
+			return data.replace(/\n/g, "<br />");
+	}
+
 	// Detecter les changements de connexion a internet
 	$rootScope.isOnline = navigator.onLine;
 	$rootScope.alertOffline = false;
 	$rootScope.alertAppli = false;
 
+	
 	if( $rootScope.alertAppli == false && version == "site-mobile" ){
 		$rootScope.alertAppli = true;
 		
 		$timeout( function(){ 
 			swal({   
-				title: "Souhaitez-vous télécharger l'application mobile ?",   
-				text: "Emportez les étapes savoureuses avec vous !",
+				title: $rootScope.getTrad('swal_appli_titre'),//"Souhaitez-vous télécharger l'application mobile ?",   
+				text: $rootScope.getTrad('swal_appli_texte'),//"Emportez les étapes savoureuses avec vous !",
 				showCancelButton: true,   
 				confirmButtonColor: "#9d2344",   
-				confirmButtonText: "Oui",   
-				cancelButtonText: "Non, merci",   
+				confirmButtonText: $rootScope.getTrad('oui'),//"Oui",   
+				cancelButtonText: $rootScope.getTrad('non_merci'),//"Non, merci",   
 				closeOnConfirm: false,   
 				closeOnCancel: true
 			}, function(isConfirm){
@@ -239,6 +287,8 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 			});
 		} , 2000 );
 
+	
+
 	}
 
 
@@ -250,8 +300,8 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 			$rootScope.alertOffline = true;
 
 			swal({   
-				title: "Attention !",   
-				text: "Vous n'êtes pas connecté à internet. Vous n'aurez donc pas accès à toutes les fonctionnalités du site.",   
+				title: $rootScope.getTrad('swal_connect_titre'),//"Attention !",   
+				text: $rootScope.getTrad('swal_connect_texte'),//"Vous n'êtes pas connecté à internet. Vous n'aurez donc pas accès à toutes les fonctionnalités du site.",   
 				type: "warning" 
 			});
 			$location.path('/home/themes');
@@ -269,7 +319,18 @@ app.run(function($window, $rootScope, $location, $resource, $templateCache, $loc
 	$rootScope.version = version;
 
 
-	
+	$rootScope.resizeImageHeight = 350;
+	$(window).on("resize.doResize", function (){
+        var newSize = Math.round(window.outerWidth/1.5);
+        if( newSize == 0 ){
+        	newSize = 350;
+        }
+
+        $rootScope.resizeImageHeight = newSize;
+        $(".resize-image").stop(true,true).height(newSize+"px");
+    });
+
+
 
 });
 
@@ -309,3 +370,7 @@ function getMobileOperatingSystem() {
     return 'unknown';
   }
 }
+
+
+
+

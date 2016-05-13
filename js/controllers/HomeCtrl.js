@@ -7,12 +7,14 @@ appControllers.controller('HomeCtrl', HomeCtrl);
 
 function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource, $timeout)
 {
+	$rootScope.stopLoadingACote = true;
+
 	$scope.pageClass = 'page-home';
 	$scope.oldpage = $routeParams.page;
 	$scope.pageName = 'etapes';
 	$rootScope.etapesPageName = $routeParams.page;
-	$scope.pageTitle1 = "Quelle sera";
-	$scope.pageTitle2 = "votre prochaine étape ?";
+	$scope.pageTitle1 = $rootScope.getTrad('titre_accueil_1');
+	$scope.pageTitle2 = $rootScope.getTrad('titre_accueil_2');
 	$rootScope.currentTheme = null;
 	$rootScope.currentSousTheme = null;
 
@@ -28,10 +30,6 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 	
 
 	$timeout( function(){
-
-		if (geoPosition.init()) {
-		   $rootScope.getPosition();
-		}
 
 		$scope.contentLoading = true;
 
@@ -100,39 +98,46 @@ function HomeCtrl($scope, $routeParams, $http, $rootScope, $location, $resource,
 	}
 
 	$rootScope.imgToStorage = function(imgSrc){
-		var img = new Image();
-		
-		img.onload = function () {
-	 
-	        var canvas = document.createElement("canvas");
-	        canvas.width =this.width;
-	        canvas.height =this.height;
 
-	        var ctx = canvas.getContext("2d");
-	        ctx.drawImage(this, 0, 0);
+		var index = $rootScope.$storage.imagesID.indexOf(imgSrc);
+
+		if( index == -1 ){
+
+			$rootScope.$storage.imagesID.push(imgSrc);
+			index = $rootScope.$storage.imagesID.length-1;
+			$rootScope.$storage.images[index] = "";
+			
+			var img = new Image();
+			
+			img.onload = function () {
+		 
+		        var canvas = document.createElement("canvas");
+		        canvas.width =this.width;
+		        canvas.height =this.height;
+
+		        var ctx = canvas.getContext("2d");
+		        ctx.drawImage(this, 0, 0);
 
 
-	        var dataURL = canvas.toDataURL("image/png");
+		        var dataURL = canvas.toDataURL("image/png");
 
-	        $rootScope.$storage.images[imgSrc] = dataURL;//.replace(/^data:image\/(png|jpg);base64,/, "");
-	        console.log($rootScope.$storage.images);
-	        $rootScope.$apply();
-        }
+		        $rootScope.$storage.images[index] = dataURL;//.replace(/^data:image\/(png|jpg);base64,/, "");
+		        ////console.log($rootScope.$storage.images);
+		        $rootScope.$apply();
+	        }
 
-		img.crossOrigin = "Anonymous";
-        img.src = imgSrc;
+			img.crossOrigin = "Anonymous";
+	        img.src = imgSrc;
+	    }
 
 	}
 
 	$rootScope.imgFromStorage = function(imgSrc)	{
 
-		if( $rootScope.$storage.images[imgSrc] == null )
-		{
-			$rootScope.$storage.images[imgSrc] = ""; // valeur qui va être remplie
-			$rootScope.imgToStorage(imgSrc);
-		}
+		var index = $rootScope.$storage.imagesID.indexOf(imgSrc);
 
-		return $rootScope.$storage.images[imgSrc];
+
+		return $rootScope.$storage.images[index];
 	}
 
     

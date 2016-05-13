@@ -5,13 +5,14 @@ var appControllers = angular.module('appControllers', []);
 
 appControllers.controller('TutorielCtrl', TutorielCtrl);
 
-function TutorielCtrl($scope, $rootScope, $location, $resource)
+function TutorielCtrl($scope, $rootScope, $location, $resource, $timeout)
 {
 	$rootScope.pageClass = "tutoriel-page";
 	$rootScope.firstBuild = 'tutoriel';
 	$scope.currentSlide = 0;
 	$scope.slideAnim = 'swipe-left';
 	$scope.nbSlides = 0;
+	$scope.tutoHeight = false;
 
 	
 	if( $rootScope.isOnline == true ){
@@ -19,8 +20,10 @@ function TutorielCtrl($scope, $rootScope, $location, $resource)
 		WPAPI.query( null, function(datas){
 			$scope.dataPage = datas.posts[0].custom_fields;
 			$scope.nbSlides = $scope.dataPage.slide_home.length - 1;
-			console.log($scope.dataPage);
+			//console.log($scope.dataPage);
 			$rootScope.$storage.tutoriel = $scope.dataPage;
+
+			$scope.setTutoHeight();
 		});
 	}
 
@@ -46,6 +49,17 @@ function TutorielCtrl($scope, $rootScope, $location, $resource)
 
     $scope.go = function ( path ) {
 		$location.path( path );
+	};
+
+	$scope.setTutoHeight = function(){
+		$timeout( function(){
+			$("#tuto-content .block-slide").each(function(){
+				//console.log($(this).height());
+				var height = -Math.round( $(this).height() *.5)-50;
+				$(this).css("margin-top", height+"px");
+			});
+			$scope.tutoHeight = true;
+		} , 100 );
 	};
 
 }

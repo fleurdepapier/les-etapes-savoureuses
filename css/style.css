@@ -137,6 +137,19 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  position: relative;
+
+
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  align-items: stretch;
+  -webkit-align-items: stretch;
+  align-content: stretch;
+  -webkit-align-content: stretch;
+  justify-content: flex-start;
+  -webkit-justify-content: flex-start;
 }
 
 @media (orientation: landscape) {
@@ -153,9 +166,9 @@ a {
 
 /*
 input, textarea{
-	border:none;
-	-webkit-appearance: none;
-	@include border-radius(0px);
+  border:none;
+  -webkit-appearance: none;
+  @include border-radius(0px);
 }
 */
 /* line 74, style.scss */
@@ -207,7 +220,7 @@ section.ng-scope, .page.ng-scope {
   background-color: #FFF;
   height: 50px;
   font-size: 14px;
-  position: fixed;
+  position: absolute;
   left: 0px;
   top: 0px;
   z-index: 999;
@@ -226,7 +239,9 @@ section.ng-scope, .page.ng-scope {
   left: 15px;
   width: 22px;
   height: 19px;
-  background-image: url(../img/bt-menu.png);
+  background-image: url(../img/bt-menu@2x.png);
+  background-size: 22px 19px;
+  background-position: center center;
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -288,6 +303,8 @@ section.ng-scope, .page.ng-scope {
   height: 100%;
   left: 0;
   right: 0;
+
+  flex: 1 1 auto;
 }
 
 /* line 189, style.scss */
@@ -349,6 +366,7 @@ section.ng-scope, .page.ng-scope {
   left: 0px;
   right: 0px;
   bottom: 0px;
+  height: 100%;
   overflow-x: hidden;
   padding-top: 50px;
   /*overflow-y:scroll;*/
@@ -607,7 +625,7 @@ body.right .view.ng-enter {
 
 /*
 .page.page-under-header{
-	padding-top: 75px;
+  padding-top: 75px;
 }*/
 /* Anim leave block theme */
 /* line 434, style.scss */
@@ -689,7 +707,9 @@ body.right .view.ng-enter {
   width: 100px;
   height: 105px;
   margin-top: 50px;
-  background-image: url(../img/logo-menu.png);
+  background-image: url(../img/logo-menu@2x.png);
+  background-size: 100px 105px;
+  background-position: center center;
   background-repeat: no-repeat;
   margin-bottom: 30px;
 }
@@ -700,6 +720,7 @@ body.right .view.ng-enter {
   border-bottom: 1px solid #ffffff;
   text-align: left;
   overflow: hidden;
+  padding-bottom: 50px;
 }
 /* line 514, style.scss */
 .menu-container ul li {
@@ -752,6 +773,13 @@ body.right .view.ng-enter {
 
 }
 
+.menu-container ul li.reglages :before{
+  background-image: url(../img/ico-reglages.png);
+  background-size: auto 30px;
+  background-position: 10px 6px;
+
+}
+
 
 /* line 533, style.scss */
 .menu-container ul li span {
@@ -798,6 +826,7 @@ body.right .view.ng-enter {
   -o-box-shadow: inset 0px 7px 10px -4px #333333;
   box-shadow: inset 0px 7px 10px -4px #333333;
   filter: progid:DXImageTransform.Microsoft.Shadow(color=#333, Direction=180, Strength=10);
+  padding-bottom: 0px;
 }
 /* line 572, style.scss */
 .menu-container ul ul.sousmenu li {
@@ -857,7 +886,20 @@ body.right .view.ng-enter {
 
 /* line 620, style.scss */
 .tutorial-container .panel {
+/*  background-color: rgba(157, 35, 68, 0.9);*/
+}
+
+#tuto-content.hide{
+  opacity: 0;
+}
+
+.tutorial-container .cover {
   background-color: rgba(157, 35, 68, 0.9);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
 }
 
 /* line 624, style.scss */
@@ -924,12 +966,12 @@ body.right .view.ng-enter {
 .block-slide {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  top: 50%;
   font-family: "GothamRnd-Bold", sans-serif;
   color: white;
   font-size: 25px;
   text-align: center;
-  padding-top: 5%;
   opacity: 1;
   display:block!important;
 }
@@ -964,7 +1006,8 @@ body.right .view.ng-enter {
 }
 
 .block-slide .texte p{
-  margin: 0px;
+  max-width: 400px;
+  margin: auto;
 }
 
 
@@ -1122,6 +1165,7 @@ ul.themes-liste li span.etape-image {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  background-image:url(../img/imageManquante-petite.jpg);
 }
 /* line 748, style.scss */
 ul.themes-liste li span.icon {
@@ -1138,7 +1182,7 @@ ul.themes-liste li span.icon {
 }
 /* line 762, style.scss */
 ul.themes-liste li span.titre {
-  margin-left: 85px;
+  margin-left: 83px;
   color: #e8e8d9;
   text-transform: uppercase;
   display: inline-block;
@@ -1146,7 +1190,7 @@ ul.themes-liste li span.titre {
   font-family: "GothamRnd-Book", sans-serif;
   font-size: 14px;
   letter-spacing: 0.5px;
-  width: 70%;
+  width: 60%;
   vertical-align: middle;
 }
 /* line 773, style.scss */
@@ -1250,8 +1294,8 @@ ul.themes-liste li:hover span.color {
   text-align: left;
   color: #000;
   font-family: "Sanchez-Regular", "Times New Roman";
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 22px;
   padding-bottom: 100px;
 }
 
@@ -1337,7 +1381,7 @@ ul.themes-liste li:hover span.color {
   color: #000;
   padding: 10px 0px;
   font-family: "Sanchez-Regular", "Times New Roman";
-  font-size: 14px;
+  font-size: 16px;
   width: 100%;
   line-height: 31px;
   padding-top: 0px;
@@ -1623,8 +1667,8 @@ margin-bottom: 15px !important;
   background-image: url(../img/icon-filtre.png);
 }
 
-.page-acotedemoi .cover{
-  position: absolute;
+.page-acotedemoi .cover, .coverJouez{
+  position: fixed;
   top: 0px;
   left: 0px;
   width: 100%;
@@ -1638,7 +1682,7 @@ margin-bottom: 15px !important;
   transition: opacity ease-out 0.5s;
   z-index: 1;
 }
-.page-acotedemoi .cover.close{
+.page-acotedemoi .cover.close, .coverJouez.close{
   top: -100%;
   opacity: 0;
 }
@@ -1667,16 +1711,22 @@ margin-bottom: 15px !important;
 }
 
 .page-acotedemoi .infos{
+  top: -100% !important;
+}
+
+.page-acotedemoi .infos{
   position: fixed;
   background-color: #f7f6f2;
   color: #333;
   padding-bottom: 30px;
-  top: 50px !important;
 }
 
 
-#page-jouez .infos.ng-hide, .page-acotedemoi .infos.ng-hide{
+#page-jouez .infos.ng-hide{
   top: -100% !important;
+}
+.page-acotedemoi .infos.ng-show{
+  top: 50px !important;
 }
 
 
@@ -1711,26 +1761,47 @@ margin-bottom: 15px !important;
   line-height: 20px;
 }
 
-.page-acotedemoi .infos ul{
+.page-acotedemoi .infos .liste_choice_ctn{
   list-style-type: none;
-  text-align: left;
+  text-align: center;
   margin: 0px;
   padding: 0px;
   margin-top: 10px;
 }
 
-.page-acotedemoi .infos ul li{
-  margin: 0px;
-  padding: 0px;
-  margin-bottom: 10px;
-  font-family: "Sanchez", "Times New Roman";
-  color: #333;
-  font-size: 13px;
-}
-
-.page-acotedemoi .infos ul li label{
+.page-acotedemoi .infos .liste_choice_ctn label{
   display: inline-block;
   margin-left: 5px;
+}
+.page-acotedemoi .infos .liste_choice_ctn label{
+  display: inline-block;
+  padding: 10px 5px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  width: 30%;
+  min-width: 130px;
+
+  font-family: "Sanchez", sans-serif;
+  font-size: 13px;
+  margin: 1%;
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+}
+
+.page-acotedemoi .infos .liste_choice_ctn label.selected{
+  color: white !important;
+}
+
+.page-acotedemoi .infos .liste_choice_ctn label.not_selected{
+  background: transparent !important;
+}
+
+.page-acotedemoi .infos .liste_choice_ctn label input{
+  visibility: hidden;
+  opacity: 0;
+  display: none;
 }
 
 
@@ -1934,9 +2005,14 @@ margin-bottom: 15px !important;
   margin-top: 20px;
 }
 
+.page-listing .block .content p{
+  font-family: "Sanchez", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+}
 
 .page-listing .block .content a{
-  font-family: "Sanchez", "Times New Roman";
+  font-family: "Sanchez", sans-serif;
   font-size: 14px;
 }
 
@@ -2029,7 +2105,7 @@ text-transform: uppercase;
   width: 100%;
 }
 
-.application-mobile p{
+.application-mobile p.texte{
   display: block;
   width: 80%;
   margin: auto;
@@ -2073,6 +2149,14 @@ text-transform: uppercase;
   width: 125px;
   height: 45px;
   background-image: url(../img/bt_playstore.png);
+}
+
+.resize-image{
+  height: 350px;
+  -webkit-transition: height ease-out 0.3s;
+  -moz-transition: height ease-out 0.3s;
+  -o-transition: height ease-out 0.3s;
+  transition: height ease-out 0.3s;
 }
 
 

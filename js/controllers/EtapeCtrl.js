@@ -4,7 +4,7 @@ var appControllers = angular.module('appControllers', []);
 
 appControllers.controller('EtapeCtrl', EtapeCtrl);
 
-function EtapeCtrl($scope, $rootScope, $routeParams, $http, $timeout)
+function EtapeCtrl($scope, $rootScope, $routeParams, $http, $timeout, $window)
 {
 	var idFiche = $routeParams.idFiche;
 	$scope.noDataForFiche = false;
@@ -50,7 +50,7 @@ function EtapeCtrl($scope, $rootScope, $routeParams, $http, $timeout)
 	
 
 	$scope.initFicheData = function(){
-		$scope.headerRetourTitle = $rootScope.getlibelle($scope.fiche.nom);
+		$rootScope.headerRetourTitle = $rootScope.getlibelle($scope.fiche.nom);
 
 
 		if( $scope.fiche.localisation.geolocalisation.geoJson != null ){
@@ -88,14 +88,12 @@ function EtapeCtrl($scope, $rootScope, $routeParams, $http, $timeout)
 			}
 		}
 		
-		if( $scope.map != null )
-			$scope.setupMap($scope.map);
+		//if( $scope.map != null )
+		//	$scope.setupMap($scope.map);
 	}
 
 
-	$scope.replaceN = function(data){
-		return data.replace(/\n/g, "<br />");
-	}
+	
 
 	$scope.hasDisctinctionLogo = function(distinction){
 		/*if( distinction.id == 2968 || distinction.id == 2969 )
@@ -109,6 +107,12 @@ function EtapeCtrl($scope, $rootScope, $routeParams, $http, $timeout)
 			return true;
 		}	
 
+		return false;
+	}
+
+
+	$scope.externalLinks = function(link){
+		$window.open(encodeURI(link), '_system', 'location=yes');
 		return false;
 	}
 }

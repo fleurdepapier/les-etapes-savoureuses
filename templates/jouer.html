@@ -10,6 +10,9 @@
 		<div>
 			<div ng-click="toggleInfo()" class="bt-infos"></div>
 
+			<div ng-click="toggleInfo()" class="coverJouez" ng-class="{'close': displayInfo==false}" ></div>
+
+
 			<div class="infos" ng-show="displayInfo">
 				<span class="titre">A propos de ce jeu</span>
 				<p ng-bind-html="dataPage.a_propos"></p>
